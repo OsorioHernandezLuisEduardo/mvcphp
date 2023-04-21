@@ -40,6 +40,11 @@ class Route{
         if(is_callable($callback)){
           $response=$callback(...$params); //Se obtiene el resultado de la ejecución
         }
+        //si no se trata de una función, entonces es array con elementos del controlador y método
+        else{
+          $controller=new $callback[0];
+          $response= $controller->{$callback[1]}(...$params);
+        }
         //Si se trata de un array o objeto, utilizaremos json_encode
         if(is_array($response) || is_object($response)){
           header('Content-Type: application/json');
