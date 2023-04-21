@@ -1,12 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  Página de inicio
-</body>
-</html>
+<?php
+
+  $uri=$_SERVER['REQUEST_URI'];
+  //Verificación de uri
+  if($uri==='/users'){
+    //operaciones a realizar
+    $result=[
+      [
+        "id"=>"1",
+        "name"=>"Luis",
+        "last_name"=>"Osorio"
+      ],
+      [
+        "id"=>"2",
+        "name"=>"Eduardo",
+        "last_name"=>"Hernandez"
+      ],
+      [
+        "id"=>"3",
+        "name"=>"Juan",
+        "last_name"=>"Osorio"
+      ]
+      ];
+  }
+
+  if($uri==='/cars'){
+    $result=[
+      [
+        "id"=>"1",
+        "placa"=>"ABC-1234",
+        "modelo"=>"Tsuru",
+        "marca" =>"Nissan"
+      ],
+      [
+        "id"=>"2",
+        "placa"=>"ABC-1234",
+        "modelo"=>"Tsuru",
+        "marca" =>"Nissan"
+      ],
+      [
+        "id"=>"3",
+        "placa"=>"ABC-1234",
+        "modelo"=>"Tsuru",
+        "marca" =>"Nissan"
+      ]
+      ];
+  }
+  echo json_encode($result);
