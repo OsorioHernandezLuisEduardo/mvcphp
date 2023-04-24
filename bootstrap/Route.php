@@ -20,6 +20,11 @@ class Route{
     //Se obtiene la URI
     $uri=$_SERVER['REQUEST_URI'];
     $uri=trim($uri,'/');
+    $hasParams=strpos($uri,'?');
+    if($hasParams){
+      $uri=str_split($uri,$hasParams)[0];
+    }
+
     $method=$_SERVER['REQUEST_METHOD'];
 
     //Recorremos todo el arreglo de rutas 
