@@ -1,6 +1,7 @@
 <?php
 namespace app\Controllers;
 
+use app\Models\User;
 use bootstrap\Request;
 
 class UserController{
@@ -11,8 +12,8 @@ class UserController{
   }
   public function getAll()
   {
-    $params= $this->request->getQuery();
-    return $params;
-    return "retornar una array de usuarios";
+    $modelUser=new User();
+
+    return $modelUser->all();
   }
 }
