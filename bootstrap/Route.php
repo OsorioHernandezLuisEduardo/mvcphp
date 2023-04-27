@@ -21,6 +21,12 @@ class Route{
     self::$routes['PUT'][$uri]=$callback;
   }
 
+  public static function delete($uri,$callback)
+  {
+    $uri=trim($uri,'/');
+    self::$routes['DELETE'][$uri]=$callback;
+  }
+
   public static function dispatch()
   {
     //Se obtiene la URI

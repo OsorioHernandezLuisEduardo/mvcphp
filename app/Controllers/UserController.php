@@ -40,4 +40,9 @@ class UserController{
       'password'=>'luis1234'
     ]);
   }
+  public function delete($id)
+  {
+    $modelUser= new User();
+    return $modelUser->delete($id);
+  }
 }

@@ -72,4 +72,12 @@ class Model{
     $this->execute($sql);
     return $this->find($id);
   }
+
+  public function delete($id)
+  {
+    $sql="DELETE FROM {$this->table} WHERE id = $id";
+    $object= $this->find($id);
+    $this->execute($sql);
+    return $object;
+  }
 }
