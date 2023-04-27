@@ -16,4 +16,19 @@ class UserController{
 
     return $modelUser->all();
   }
+  public function findById($id)
+  {
+    $modelUser=new User();
+
+    return $modelUser->find($id);
+  }
+  public function create()
+  {
+    $modelUser=new User();
+    return $modelUser->create([
+      'name'=>'luis',
+      'email'=>'osorio@osher',
+      'password'=>'luis1234'
+    ]);
+  }
 }
