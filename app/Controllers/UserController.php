@@ -31,4 +31,13 @@ class UserController{
       'password'=>'luis1234'
     ]);
   }
+  public function update($id)
+  {
+    $modelUser=new User();
+    return $modelUser->update($id,[
+      'name'=>'luis pedro',
+      'email'=>'osorio@osher',
+      'password'=>'luis1234'
+    ]);
+  }
 }

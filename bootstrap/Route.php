@@ -15,6 +15,12 @@ class Route{
     self::$routes['POST'][$uri]=$callback;
   }
 
+  public static function put($uri,$callback)
+  {
+    $uri=trim($uri,'/');
+    self::$routes['PUT'][$uri]=$callback;
+  }
+
   public static function dispatch()
   {
     //Se obtiene la URI
