@@ -1,8 +1,9 @@
 <?php
 
+use app\Controllers\AuthController;
 use app\Controllers\UserController;
 use bootstrap\Route;
-
+  Route::post('/login',[AuthController::class,'login']);
   Route::get('/users/:id/:name',function($id,$name){
     return "usuario con id ".$id." y nombre".$name;
   });
