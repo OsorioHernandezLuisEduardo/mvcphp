@@ -3,10 +3,10 @@ namespace app\Models;
 
 use mysqli;
 class Model{
-  protected $db_host = 'localhost';
-  protected $db_user = 'root';
-  protected $db_pass = '';
-  protected $db_database = 'cars';
+  protected $db_host = DB_HOST;
+  protected $db_user = DB_USER;
+  protected $db_pass = DB_PASS;
+  protected $db_database = DB_DATABASE;
   protected $table;
 
   protected $connection;
