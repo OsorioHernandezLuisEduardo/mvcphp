@@ -80,4 +80,14 @@ class Model{
     $this->execute($sql);
     return $object;
   }
+  public function where($column, $operator, $value = null)
+  {
+    if (!$value) {
+      $value = $operator;
+      $operator = '=';
+    }
+    $sql = "SELECT * FROM {$this->table} WHERE {$column} {$operator} '{$value}'";
+    $this->execute($sql);
+    return $this;
+  }
 }
