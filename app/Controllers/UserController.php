@@ -24,11 +24,15 @@ class UserController{
   }
   public function create()
   {
+    $name= $this->request->getFormData()['name']; 
+    $email= $this->request->getFormData()['email']; 
+    $password=$this->request->getFormData()['password']; 
+
     $modelUser=new User();
     return $modelUser->create([
-      'name'=>'luis',
-      'email'=>'osorio@osher',
-      'password'=>'luis1234'
+      'name'=>$name,
+      'email'=>$email,
+      'password'=>$password
     ]);
   }
   public function update($id)
