@@ -20,9 +20,9 @@ class Request {
     $this->formData = $_POST;
 
     $this->method = $_SERVER['REQUEST_METHOD'];
-    $this->uri = $_SERVER['REQUEST_URI'];;
+    $this->uri = $_SERVER['REQUEST_URI'];
     $this->query = $_GET;
-    $this->headers = getallheaders();;
+    $this->headers = getallheaders();
   }
 
   function getUploadedFile() {
@@ -30,7 +30,12 @@ class Request {
   }
 
   function getFormData() {
-    return $this->formData;
+    if($this->method==='POST')
+      return $this->formData;
+    
+    parse_str(file_get_contents('php://input'),$input);
+
+    return $input;
   }
 
 
