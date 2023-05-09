@@ -1,5 +1,8 @@
 <?php
 namespace Bootstrap;
+
+use bootstrap\Token;
+
 class Route{
   private static $routes=[];
 
@@ -38,6 +41,14 @@ class Route{
     }
 
     $method=$_SERVER['REQUEST_METHOD'];
+
+    $token= new Token();
+    if(!$token->checkToken() && str_starts_with($uri, 'api') && $uri != 'api/login'){
+      echo "No authorizado";
+      return;
+    }
+      
+    
 
     //Recorremos todo el arreglo de rutas 
     foreach (self::$routes[$method] as $route => $callback) {
