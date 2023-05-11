@@ -10,9 +10,6 @@ class Request {
   private $formData;
   
   public function __construct() {
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
     //$data = json_decode(file_get_contents('php://input'));
     //$this->parameters = $data;
 
