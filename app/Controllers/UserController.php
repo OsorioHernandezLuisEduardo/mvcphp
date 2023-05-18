@@ -49,4 +49,16 @@ class UserController{
     $modelUser= new User();
     return $modelUser->delete($id);
   }
+
+  public function cars($id)
+  {
+    $modelUser= new User();
+    return $modelUser->cars($id);
+  }
+
+  public function roles($id)
+  {
+    $modelUser= new User();
+    return $modelUser->roles($id);
+  }
 }

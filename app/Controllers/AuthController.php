@@ -23,7 +23,15 @@ class AuthController{
       return ["access_token"=>$jwt];
     }
     else{
-      return "";
+      http_response_code(404);
     }
+  }
+
+  public function profile()
+  {
+   $token= new Token();
+   $payload = $token->extractId();
+   $user = new User();
+   return $user->find($payload->id);
   }
 }

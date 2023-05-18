@@ -90,4 +90,28 @@ class Model{
     $this->execute($sql);
     return $this;
   }
+  public function hasMany($table, $id){
+    $sql="SELECT * FROM {$table} where {$this->table}_id = {$id}";
+    return $this->execute($sql)->get();
+  }
+
+  public function belongsTo($table,$foreignKey, $id){
+    $object= $this->find($id);
+    $foreign=$object[$foreignKey];
+    $sql ="SELECT * FROM {$table} WHERE id={$foreign}";
+    return $this->execute($sql)->first();
+  }
+
+  public function belongsToMany($table,$id){
+    $tables=array($this->table,$table);
+    sort($tables,SORT_STRING);
+
+    $sql="SELECT {$table}.*  
+          FROM  {$table} 
+          INNER JOIN {$tables[0]}_{$tables[1]} on {$table}.id= {$tables[0]}_{$tables[1]}.{$table}_id
+          INNER JOIN {$this->table} on {$tables[0]}_{$tables[1]}.{$this->table}_id={$this->table}.id
+          WHERE {$this->table}.id={$id}";
+
+    return $this->execute($sql)->get();
+  }
 }

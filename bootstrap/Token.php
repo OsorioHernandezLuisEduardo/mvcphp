@@ -20,6 +20,17 @@ class Token{
     $jwt=JWT::encode($payload, SECRET_KEY,ALGORITHM);
     return $jwt;
   }
+
+  public function extractId()
+  {
+    $token=$this->getToken();
+    try{
+      $payload= JWT::decode($token,SECRET_KEY, array(ALGORITHM));
+      return $payload;
+    }catch(Exception $e){
+      http_response_code(404);
+    }
+  }
   
   private function getToken()
   {
