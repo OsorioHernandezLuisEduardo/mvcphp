@@ -92,6 +92,7 @@ class Model{
   }
   public function hasMany($table, $id){
     $sql="SELECT * FROM {$table} where {$this->table}_id = {$id}";
+    return $sql;
     return $this->execute($sql)->get();
   }
 
