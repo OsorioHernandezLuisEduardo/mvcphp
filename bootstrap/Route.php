@@ -1,6 +1,7 @@
 <?php
 namespace Bootstrap;
 
+use app\Controllers\ViewController;
 use bootstrap\Token;
 
 class Route{
@@ -49,41 +50,47 @@ class Route{
     }
       
     
+    if(str_starts_with($uri, 'api')){
+      //Recorremos todo el arreglo de rutas 
+      foreach (self::$routes[$method] as $route => $callback) {
 
-    //Recorremos todo el arreglo de rutas 
-    foreach (self::$routes[$method] as $route => $callback) {
+        //Obtener los parámetros de una url
+        if(strpos($route,":")){
+          $route= preg_replace('#:[\w]+#','([\w]+)',$route);
+        }
 
-      //Obtener los parámetros de una url
-      if(strpos($route,":")){
-        $route= preg_replace('#:[\w]+#','([\w]+)',$route);
+        //para cada iteración verificamos si alguna de las rutas corresponde a la URI
+        if(preg_match("#^$route$#",$uri,$matches)){
+
+          //creamos un array con los parámetros enviados
+          $params=array_slice($matches,1);  
+
+          //Verificamos si la función es un método
+          if(is_callable($callback)){
+            $response=$callback(...$params); //Se obtiene el resultado de la ejecución
+          }
+          //si no se trata de una función, entonces es array con elementos del controlador y método
+          else{
+            $controller=new $callback[0];
+            $response= $controller->{$callback[1]}(...$params);
+          }
+          //Si se trata de un array o objeto, utilizaremos json_encode
+          if(is_array($response) || is_object($response)){
+            header('Content-Type: application/json');
+            echo json_encode($response);
+          }
+          else{
+            echo $response;
+          }
+          return;
+        }
+
       }
-
-      //para cada iteración verificamos si alguna de las rutas corresponde a la URI
-      if(preg_match("#^$route$#",$uri,$matches)){
-
-        //creamos un array con los parámetros enviados
-        $params=array_slice($matches,1);  
-
-        //Verificamos si la función es un método
-        if(is_callable($callback)){
-          $response=$callback(...$params); //Se obtiene el resultado de la ejecución
-        }
-        //si no se trata de una función, entonces es array con elementos del controlador y método
-        else{
-          $controller=new $callback[0];
-          $response= $controller->{$callback[1]}(...$params);
-        }
-        //Si se trata de un array o objeto, utilizaremos json_encode
-        if(is_array($response) || is_object($response)){
-          header('Content-Type: application/json');
-          echo json_encode($response);
-        }
-        else{
-          echo $response;
-        }
-        return;
-      }
-
+    }else{
+      $controller=new ViewController();
+      $response= $controller->index();
+      echo $response; 
+      return;
     }
     echo '404:Route not found';
   }
